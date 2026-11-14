@@ -745,6 +745,104 @@
   }
   .viewer-stage iframe.is-loaded { opacity: 1; }
 
+
+  /* ── REVIEWS ── */
+  .reviews { margin-top: 40px; }
+  .rev-grid { display: grid; grid-template-columns: minmax(0, 380px) minmax(0, 1fr); gap: 12px; align-items: start; }
+  .rev-form, .rev-wall-wrap {
+    background: var(--panel); border: 1px solid var(--line); box-shadow: var(--card-shadow); position: relative;
+  }
+  .rev-form { padding: 18px; display: flex; flex-direction: column; gap: 12px; }
+  .rev-form::before, .rev-wall-wrap::before {
+    content: ''; position: absolute; top: 0; left: 0; width: 12px; height: 12px;
+    border-top: 2px solid var(--cyan); border-left: 2px solid var(--cyan);
+  }
+  .rev-h { font-family: 'Orbitron', monospace; font-size: 11px; letter-spacing: 3px; color: var(--cyan); }
+  .rev-field { display: flex; flex-direction: column; gap: 6px; }
+  .rev-field label { font-size: 10px; letter-spacing: 2px; color: var(--text-dim); display: flex; justify-content: space-between; }
+  .rev-field input, .rev-field select, .rev-field textarea {
+    width: 100%; background: var(--panel-2); border: 1px solid var(--line); color: var(--ink);
+    font-family: 'Rajdhani', sans-serif; font-size: 16px; font-weight: 500; padding: 9px 11px; outline: 0;
+    transition: border-color 0.2s; border-radius: 0;
+  }
+  .rev-field select { appearance: none; -webkit-appearance: none; background-image: linear-gradient(45deg, transparent 50%, var(--text-dim) 50%), linear-gradient(135deg, var(--text-dim) 50%, transparent 50%); background-position: calc(100% - 16px) 50%, calc(100% - 11px) 50%; background-size: 5px 5px; background-repeat: no-repeat; padding-right: 28px; }
+  .rev-field textarea { min-height: 112px; resize: vertical; line-height: 1.45; }
+  .rev-field input:focus, .rev-field select:focus, .rev-field textarea:focus { border-color: var(--cyan); }
+  .rev-row { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+  .rev-hp { position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden; }
+  .rev-btn {
+    display: flex; align-items: center; justify-content: space-between; padding: 11px 14px;
+    border: 1px solid var(--cyan); color: var(--cyan); background: transparent;
+    font-family: inherit; font-size: 12px; letter-spacing: 2px; cursor: pointer; position: relative; overflow: hidden;
+  }
+  .rev-btn::before { content: ''; position: absolute; left: -101%; top: 0; bottom: 0; width: 101%; background: var(--cyan); transition: left 0.3s ease; }
+  .rev-btn:hover::before, .rev-btn:focus-visible::before { left: 0; }
+  .rev-btn:hover, .rev-btn:focus-visible { color: var(--btn-ink); }
+  .rev-btn span, .rev-btn svg { position: relative; z-index: 1; }
+  .rev-btn[disabled] { opacity: 0.5; pointer-events: none; }
+  .rev-msg { font-size: 12px; letter-spacing: 1px; line-height: 1.5; min-height: 18px; }
+  .rev-msg.ok { color: #2fd68a; }
+  .rev-msg.err { color: #ff5f6d; }
+  [data-theme="light"] .rev-msg.ok { color: #0b7a4b; }
+  [data-theme="light"] .rev-msg.err { color: #b80f2a; }
+
+  .rev-wall-wrap { padding: 18px; min-height: 100%; }
+  .rev-wall-head { display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px; gap: 10px; }
+  .rev-count { font-size: 11px; letter-spacing: 2px; color: var(--text-dim); }
+  .rev-wall { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 10px; }
+  .rev-card {
+    --accent: var(--cyan);
+    border: 1px solid var(--line); border-left: 3px solid var(--accent); background: var(--panel-2);
+    padding: 14px 14px 12px; display: flex; flex-direction: column; gap: 10px; min-width: 0;
+  }
+  .rev-quote { font-family: 'Rajdhani', sans-serif; font-size: 16px; font-weight: 500; line-height: 1.45; color: var(--text); white-space: pre-wrap; overflow-wrap: anywhere; }
+  .rev-meta { display: flex; justify-content: space-between; align-items: flex-end; gap: 8px; margin-top: auto; }
+  .rev-name { font-family: 'Orbitron', monospace; font-size: 12px; font-weight: 700; letter-spacing: 1px; color: var(--ink); overflow-wrap: anywhere; }
+  .rev-sub { font-size: 10px; letter-spacing: 1.5px; color: var(--text-dim); margin-top: 3px; }
+  .rev-app { font-size: 10px; letter-spacing: 1.5px; color: var(--accent); border: 1px solid var(--accent); padding: 2px 6px; white-space: nowrap; }
+  .rev-empty { grid-column: 1 / -1; border: 1px dashed var(--line); padding: 28px; text-align: center; font-size: 12px; letter-spacing: 2px; color: var(--text-dim); }
+  .rev-more { margin-top: 12px; font-family: inherit; font-size: 11px; letter-spacing: 2px; color: var(--text-dim); background: none; border: 1px solid var(--line); padding: 8px 12px; cursor: pointer; }
+  .rev-more:hover { color: var(--cyan); border-color: var(--cyan); }
+
+  .footer-admin { color: var(--text-faint); text-decoration: none; letter-spacing: 2px; }
+  .footer-admin:hover { color: var(--cyan); }
+
+  /* ── ADMIN ── */
+  .admin { position: fixed; inset: 0; z-index: 10001; background: var(--bg); display: none; flex-direction: column; }
+  .admin.is-open { display: flex; }
+  .admin-bar { display: flex; align-items: center; gap: 12px; height: 52px; padding: 0 16px; border-bottom: 1px solid var(--line); background: var(--panel); flex-shrink: 0; }
+  .admin-title { font-family: 'Orbitron', monospace; font-size: 12px; font-weight: 700; letter-spacing: 3px; color: var(--cyan); margin-right: auto; }
+  .admin-body { flex: 1; overflow-y: auto; padding: 24px 16px 40px; }
+  .admin-inner { max-width: 1100px; margin: 0 auto; }
+  .admin-login { max-width: 380px; margin: 60px auto; display: flex; flex-direction: column; gap: 12px; }
+  .admin-tools { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; margin-bottom: 14px; }
+  .admin-tools .filter { height: 30px; }
+  .admin-stats { margin-left: auto; font-size: 11px; letter-spacing: 2px; color: var(--text-dim); }
+  .admin-table { width: 100%; border-collapse: collapse; font-size: 13px; }
+  .admin-table th { text-align: left; font-size: 10px; letter-spacing: 2px; color: var(--text-dim); font-weight: 400; padding: 8px 10px; border-bottom: 1px solid var(--line); }
+  .admin-table td { padding: 12px 10px; border-bottom: 1px solid var(--line-soft); vertical-align: top; color: var(--text); }
+  .admin-table td.cmt { font-family: 'Rajdhani', sans-serif; font-size: 15px; line-height: 1.45; white-space: pre-wrap; overflow-wrap: anywhere; max-width: 460px; }
+  .admin-table .who b { display: block; color: var(--ink); font-weight: 400; }
+  .admin-table .who span, .admin-table .when { font-size: 11px; color: var(--text-dim); letter-spacing: 1px; }
+  .badge { font-size: 10px; letter-spacing: 1.5px; padding: 3px 7px; border: 1px solid; white-space: nowrap; }
+  .badge.pub { color: #2fd68a; border-color: #2fd68a; }
+  .badge.hid { color: #f5a623; border-color: #f5a623; }
+  [data-theme="light"] .badge.pub { color: #0b7a4b; border-color: #0b7a4b; }
+  [data-theme="light"] .badge.hid { color: #a05c00; border-color: #a05c00; }
+  .row-actions { display: flex; gap: 6px; flex-wrap: wrap; }
+  .act { font-family: inherit; font-size: 10px; letter-spacing: 1.5px; padding: 6px 9px; background: none; border: 1px solid var(--line); color: var(--text); cursor: pointer; white-space: nowrap; }
+  .act:hover { border-color: var(--cyan); color: var(--cyan); }
+  .act.del:hover, .act.del.confirm { border-color: #ff5f6d; color: #ff5f6d; }
+  .act.del.confirm { background: rgba(255, 95, 109, 0.1); }
+  .act[disabled] { opacity: 0.4; pointer-events: none; }
+
+  @media (max-width: 860px) {
+    .rev-grid { grid-template-columns: 1fr; }
+    .admin-table thead { display: none; }
+    .admin-table tr { display: block; border-bottom: 1px solid var(--line); padding: 10px 0; }
+    .admin-table td { display: block; border: 0; padding: 4px 0; max-width: none; }
+  }
+
   /* ── RESPONSIVE ── */
   @media (max-width: 1020px) {
     .hero { grid-template-columns: 1fr; }
@@ -811,7 +909,7 @@
       <div class="hero-sub">
         <span id="heroCount">9 PROJECTS</span> &nbsp;·&nbsp; SHIPPED &amp; LIVE &nbsp;·&nbsp; <span>BUILT FROM SCRATCH</span>
       </div>
-      <p class="hero-liner">The library of everything I've built, from my very first project to today.</p>
+      <p class="hero-liner">Everything I've built so far, first to latest.</p>
       <div class="typing-line" id="typingLine"></div>
 
       <div class="stats-row">
@@ -841,14 +939,58 @@
 
   <main class="projects-grid" id="projectsGrid"></main>
 
+  <!-- REVIEWS -->
+  <section class="reviews" id="reviews" aria-labelledby="revTitle">
+    <div class="dir-head">
+      <h2 id="revTitle">// REVIEWS</h2>
+      <span class="dir-count" id="revCountTop"></span>
+      <div class="section-line"></div>
+    </div>
+    <div class="rev-grid">
+      <form class="rev-form" id="revForm" novalidate>
+        <div class="rev-h">LEAVE A REVIEW</div>
+        <div class="rev-field"><label for="revName">NAME</label><input id="revName" name="name" maxlength="60" autocomplete="name" required/></div>
+        <div class="rev-row">
+          <div class="rev-field"><label for="revRelation">HOW YOU KNOW ME</label>
+            <select id="revRelation" name="relation" required>
+              <option value="">Select</option><option>Girlfriend</option><option>Friend</option><option>Family</option><option>Others</option>
+            </select></div>
+          <div class="rev-field"><label for="revApp">APP TESTED</label><select id="revApp" name="app" required></select></div>
+        </div>
+        <div class="rev-field"><label for="revComment">COMMENTS <span id="revChars">0 / 1000</span></label><textarea id="revComment" name="comment" maxlength="1000" required placeholder="What worked, what didn't, what you'd change"></textarea></div>
+        <div class="rev-hp" aria-hidden="true"><label for="revWebsite">Website</label><input id="revWebsite" name="website" tabindex="-1" autocomplete="off"/></div>
+        <button class="rev-btn" type="submit" id="revSubmit"><span>SUBMIT REVIEW</span><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg></button>
+        <div class="rev-msg" id="revMsg" role="status" aria-live="polite"></div>
+      </form>
+      <div class="rev-wall-wrap">
+        <div class="rev-wall-head"><div class="rev-h">WHAT TESTERS SAID</div><span class="rev-count" id="revCount"></span></div>
+        <div class="rev-wall" id="revWall"><div class="rev-empty">LOADING REVIEWS…</div></div>
+        <button class="rev-more" type="button" id="revMore" hidden>SHOW MORE</button>
+      </div>
+    </div>
+  </section>
+
   <!-- FOOTER -->
   <footer class="footer">
     <div class="footer-brand">BRYANSCL</div>
     <div>BUILT WITH INTENT · VIBE CODED · <span id="year"></span></div>
-    <div>SYS_VER 1.5.1</div>
+    <div>SYS_VER 1.7.0 · <a class="footer-admin" href="#admin">ADMIN</a></div>
   </footer>
 
 </div><!-- /wrapper -->
+
+<!-- ADMIN -->
+<div class="admin" id="admin" role="dialog" aria-modal="true" aria-label="Review admin">
+  <div class="admin-bar">
+    <span class="admin-title">// REVIEW ADMIN</span>
+    <button class="viewer-btn" type="button" id="adminLogout" hidden>LOG OUT</button>
+    <button class="viewer-btn primary" type="button" id="adminClose">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+      <span>BACK<span class="long"> TO DASHBOARD</span></span>
+    </button>
+  </div>
+  <div class="admin-body"><div class="admin-inner" id="adminInner"></div></div>
+</div>
 
 <!-- PROJECT VIEWER -->
 <div class="viewer" id="viewer" role="dialog" aria-modal="true" aria-label="Project viewer">
@@ -896,7 +1038,7 @@
       id: 'immune-arcade', name: 'Immune Arcade', icon: '🦠',
       group: 'health', label: 'EDUGAME', host: 'VERCEL',
       url: 'https://immune-arcade.vercel.app/',
-      desc: 'Health defenders vs viruses in a 1v1 fighter. Every signature move is built on a real health fact.',
+      desc: 'Health heroes vs viruses, one round at a time.',
       tags: ['HEALTH', 'FIGHTER', '1V1', 'VERCEL'],
       dark: '#b8f03c', light: '#4a7500', sound: 'punch'
     },
@@ -904,7 +1046,7 @@
       id: 'slip-shift', name: 'Slip Shift', icon: '⚠️',
       group: 'safety', label: 'SAFETY', host: 'VERCEL',
       url: 'https://slip-shift.vercel.app/',
-      desc: 'Survive a 90-second warehouse shift. Dodge, jump and fix slip hazards before clock-off.',
+      desc: 'Dodge slip hazards. Survive the shift.',
       tags: ['SAFETY', 'GAME', '3D', 'VERCEL'],
       dark: '#9d8cff', light: '#5a43d6', sound: 'slip'
     },
@@ -912,7 +1054,7 @@
       id: 'investsmart-sg', name: 'InvestSmart SG', icon: '📈',
       group: 'finance', label: 'FINANCE', host: 'VERCEL',
       url: 'https://investsmart-sg.vercel.app/',
-      desc: 'Investing from Singapore, in plain English. CPF to S&amp;P 500 ETFs, minus the jargon.',
+      desc: 'Investing in Singapore, minus the jargon.',
       tags: ['FINANCE', 'SINGAPORE', 'GUIDE', 'VERCEL'],
       dark: '#2fd68a', light: '#0b7a4b', sound: 'coin'
     },
@@ -920,7 +1062,7 @@
       id: 'go-where-ah', name: 'Go Where Ah?', icon: '🗺️',
       group: 'lifestyle', label: 'LIFESTYLE', host: 'VERCEL',
       url: 'https://gowhereah.vercel.app/',
-      desc: 'Tell it your MRT stop. Get food, fun and nature picks on an illustrated Singapore map.',
+      desc: 'Pick your MRT. Get a day out, planned.',
       tags: ['SINGAPORE', 'LIFESTYLE', 'REACT', 'CLAUDE'],
       dark: '#c9a84c', light: '#86670f', sound: 'chime'
     },
@@ -928,7 +1070,7 @@
       id: 'repright', name: 'RepRight', icon: '🏋️',
       group: 'health', label: 'FITNESS', host: 'VERCEL',
       url: 'https://repright-six.vercel.app/',
-      desc: 'Tap a muscle, get the lift. 70+ exercises with sets, reps and form cues.',
+      desc: 'Tap a muscle, see the lift, log the session.',
       tags: ['FITNESS', 'STRENGTH', 'HTML/CSS/JS', 'CLAUDE'],
       dark: '#f0465c', light: '#b80f2a', sound: 'heartbeat'
     },
@@ -936,7 +1078,7 @@
       id: 'marginalia', name: 'Marginalia', icon: '📖',
       group: 'lifestyle', label: 'LITERARY', host: 'VERCEL',
       url: 'https://marginalia-six.vercel.app/',
-      desc: 'A book journal with hand-crafted covers and the ideas worth keeping from every read.',
+      desc: 'Book notes worth keeping.',
       tags: ['LITERARY', 'BOOKS', 'HTML/CSS/JS', 'CLAUDE'],
       dark: '#dcb48a', light: '#8a5a2b', sound: 'page'
     },
@@ -944,7 +1086,7 @@
       id: 'sedentary-check', name: 'Sedentary Check', icon: '🪑',
       group: 'health', label: 'WELLNESS', host: 'VERCEL',
       url: 'https://sedentarycheck.vercel.app/',
-      desc: 'How much do you really sit? A quick guided check-in on your everyday habits.',
+      desc: 'How much do you actually sit?',
       tags: ['WELLNESS', 'CHECK-IN', 'VERCEL'],
       dark: '#00d4ff', light: '#007a99', sound: 'heartbeat'
     },
@@ -952,7 +1094,7 @@
       id: 'bite-right', name: 'Bite Right', icon: '🍎',
       group: 'health', label: 'EDUGAME', host: 'NETLIFY',
       url: 'https://biterights.netlify.app/',
-      desc: 'Think you eat well? Play through everyday food choices and find out.',
+      desc: 'Think you eat well? Prove it.',
       tags: ['GAME', 'NUTRITION', 'NETLIFY'],
       dark: '#ff5fa0', light: '#c2185b', sound: 'crunch'
     },
@@ -960,7 +1102,7 @@
       id: 'height-sense', name: 'Height Sense', icon: '🏗️',
       group: 'safety', label: 'SAFETY', host: 'NETLIFY',
       url: 'https://heightsenses.netlify.app/',
-      desc: 'One wrong step is all it takes. Test your Working at Heights safety know-how.',
+      desc: 'Working at heights, tested in one quiz.',
       tags: ['SAFETY', 'QUIZ', 'NETLIFY'],
       dark: '#f5a623', light: '#a05c00', sound: 'alert'
     }
@@ -1418,6 +1560,163 @@
       requestAnimationFrame(loop);
     }
     requestAnimationFrame(loop);
+  })();
+
+
+  /* ── REVIEWS ── */
+  (function () {
+    var API = '/api/reviews';
+    var form = $('revForm'), wall = $('revWall'), msg = $('revMsg');
+    var all = [], shown = 6;
+
+    function esc(t) { return String(t).replace(/[&<>"']/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]; }); }
+    function when(ts) { var d = new Date(ts); return d.getDate() + ' ' + ['JAN','FEB','MAR','APR','MAY','JUN','JUL','AUG','SEP','OCT','NOV','DEC'][d.getMonth()] + ' ' + d.getFullYear(); }
+    function accentFor(app) {
+      var p = PROJECTS.filter(function (x) { return x.name === app; })[0];
+      if (!p) return 'var(--cyan)';
+      return currentThemeSafe() === 'light' ? p.light : p.dark;
+    }
+    function currentThemeSafe() { return root.getAttribute('data-theme') === 'light' ? 'light' : 'dark'; }
+    async function call(method, path, body, adminKey) {
+      var opts = { method: method, headers: {} };
+      if (body) { opts.headers['Content-Type'] = 'application/json'; opts.body = JSON.stringify(body); }
+      if (adminKey) opts.headers['x-admin-key'] = adminKey;
+      var r = await fetch(API + (path || ''), opts);
+      var data = await r.json().catch(function () { return {}; });
+      if (!r.ok) { var e = new Error(data.error || 'Request failed (' + r.status + ')'); e.status = r.status; throw e; }
+      return data;
+    }
+    window.__reviewsApi = call;
+
+    // app options
+    $('revApp').innerHTML = '<option value="">Select</option>' + PROJECTS.map(function (p) { return '<option>' + esc(p.name) + '</option>'; }).join('') + '<option>This dashboard</option>';
+    $('revComment').addEventListener('input', function () { $('revChars').textContent = this.value.length + ' / 1000'; });
+
+    function card(r) {
+      return '<article class="rev-card" style="--accent:' + accentFor(r.app) + '">' +
+        '<p class="rev-quote">' + esc(r.comment) + '</p>' +
+        '<div class="rev-meta"><div><div class="rev-name">' + esc(r.name) + '</div><div class="rev-sub">' + esc(r.relation).toUpperCase() + ' · ' + when(r.createdAt) + '</div></div>' +
+        '<span class="rev-app">' + esc(r.app).toUpperCase() + '</span></div></article>';
+    }
+    function renderWall() {
+      $('revCount').textContent = all.length ? all.length + (all.length === 1 ? ' REVIEW' : ' REVIEWS') : '';
+      $('revCountTop').textContent = all.length ? all.length + ' REVIEWS' : '';
+      if (!all.length) { wall.innerHTML = '<div class="rev-empty">NO REVIEWS YET. TRIED ONE OF THE APPS? BE THE FIRST.</div>'; $('revMore').hidden = true; return; }
+      wall.innerHTML = all.slice(0, shown).map(card).join('');
+      $('revMore').hidden = all.length <= shown;
+    }
+    $('revMore').addEventListener('click', function () { shown += 6; renderWall(); });
+    async function loadWall() {
+      try { all = (await call('GET')).reviews || []; renderWall(); }
+      catch (e) { wall.innerHTML = '<div class="rev-empty">' + (e.status === 503 ? 'REVIEWS ARE BEING SET UP. CHECK BACK SOON.' : 'COULDN’T LOAD REVIEWS. REFRESH TO TRY AGAIN.') + '</div>'; }
+    }
+    window.__reloadReviews = loadWall;
+    $('themeToggle').addEventListener('click', function () { if (all.length) renderWall(); });
+
+    form.addEventListener('submit', async function (e) {
+      e.preventDefault();
+      var data = { name: $('revName').value.trim(), relation: $('revRelation').value, app: $('revApp').value, comment: $('revComment').value.trim(), website: $('revWebsite').value };
+      var missing = [];
+      if (!data.name) missing.push('name'); if (!data.relation) missing.push('how you know me'); if (!data.app) missing.push('app tested'); if (data.comment.length < 5) missing.push('a comment');
+      if (missing.length) { msg.className = 'rev-msg err'; msg.textContent = 'Add ' + missing.join(', ') + ' before submitting.'; return; }
+      $('revSubmit').disabled = true; msg.className = 'rev-msg'; msg.textContent = 'SENDING…';
+      try {
+        var res = await call('POST', '', data);
+        form.reset(); $('revChars').textContent = '0 / 1000';
+        msg.className = 'rev-msg ok';
+        msg.textContent = res.status === 'published' ? 'Thanks! Your review is up.' : 'Thanks! Your review will appear once it’s approved.';
+        if (res.status === 'published' && res.review) { all.unshift(res.review); renderWall(); }
+      } catch (err) {
+        msg.className = 'rev-msg err'; msg.textContent = err.message;
+      } finally { $('revSubmit').disabled = false; }
+    });
+
+    loadWall();
+  })();
+
+  /* ── REVIEW ADMIN (#admin) ── */
+  (function () {
+    var panel = $('admin'), inner = $('adminInner');
+    var key = null, rows = [], filter = 'all', pendingDelete = null;
+    try { key = sessionStorage.getItem('bscl-admin') || null; } catch (e) {}
+    function esc(t) { return String(t).replace(/[&<>"']/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]; }); }
+    function stamp(ts) { var d = new Date(ts); return d.toLocaleDateString('en-SG', { day: 'numeric', month: 'short', year: 'numeric' }) + ' ' + d.toLocaleTimeString('en-SG', { hour: '2-digit', minute: '2-digit' }); }
+
+    function open() { panel.classList.add('is-open'); document.body.classList.add('viewer-open'); if (key) load(); else login(); }
+    function close() {
+      panel.classList.remove('is-open'); document.body.classList.remove('viewer-open');
+      if (location.hash === '#admin') history.replaceState(null, '', location.pathname + location.search);
+    }
+    function login(errText) {
+      $('adminLogout').hidden = true;
+      inner.innerHTML = '<form class="admin-login" id="adminLogin"><div class="rev-h">ADMIN SIGN IN</div>' +
+        '<div class="rev-field"><label for="adminKey">ADMIN PASSWORD</label><input id="adminKey" type="password" autocomplete="current-password" required/></div>' +
+        '<button class="rev-btn" type="submit"><span>SIGN IN</span><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg></button>' +
+        '<div class="rev-msg err" role="alert">' + (errText ? esc(errText) : '') + '</div></form>';
+      setTimeout(function () { var k = $('adminKey'); if (k) k.focus(); }, 30);
+    }
+    async function load() {
+      inner.innerHTML = '<div class="rev-empty">LOADING…</div>';
+      try {
+        rows = (await window.__reviewsApi('GET', '?admin=1', null, key)).reviews || [];
+        try { sessionStorage.setItem('bscl-admin', key); } catch (e) {}
+        $('adminLogout').hidden = false;
+        render();
+      } catch (e) {
+        if (e.status === 401) { key = null; try { sessionStorage.removeItem('bscl-admin'); } catch (x) {} }
+        login(e.message);
+      }
+    }
+    function render() {
+      var pub = rows.filter(function (r) { return r.status === 'published'; }).length;
+      var list = rows.filter(function (r) { return filter === 'all' || (filter === 'published' ? r.status === 'published' : r.status !== 'published'); });
+      inner.innerHTML =
+        '<div class="admin-tools">' +
+          [['all', 'ALL', rows.length], ['published', 'PUBLISHED', pub], ['hidden', 'HIDDEN', rows.length - pub]].map(function (f) {
+            return '<button class="filter" type="button" data-f="' + f[0] + '" aria-pressed="' + (filter === f[0]) + '">' + f[1] + '<span class="n">' + f[2] + '</span></button>';
+          }).join('') +
+          '<button class="filter" type="button" id="adminRefresh">REFRESH</button>' +
+          '<span class="admin-stats">' + rows.length + ' TOTAL</span></div>' +
+        (list.length ? '<table class="admin-table"><thead><tr><th>FROM</th><th>APP</th><th>COMMENT</th><th>STATUS</th><th></th></tr></thead><tbody>' +
+          list.map(function (r) {
+            var pubd = r.status === 'published';
+            return '<tr><td class="who"><b>' + esc(r.name) + '</b><span>' + esc(r.relation) + '</span><div class="when">' + stamp(r.createdAt) + '</div></td>' +
+              '<td>' + esc(r.app) + '</td><td class="cmt">' + esc(r.comment) + '</td>' +
+              '<td><span class="badge ' + (pubd ? 'pub' : 'hid') + '">' + (pubd ? 'PUBLISHED' : 'HIDDEN') + '</span></td>' +
+              '<td><div class="row-actions"><button class="act" type="button" data-toggle="' + r.id + '">' + (pubd ? 'HIDE' : 'PUBLISH') + '</button>' +
+              '<button class="act del' + (pendingDelete === r.id ? ' confirm' : '') + '" type="button" data-del="' + r.id + '">' + (pendingDelete === r.id ? 'CONFIRM DELETE' : 'DELETE') + '</button></div></td></tr>';
+          }).join('') + '</tbody></table>'
+          : '<div class="rev-empty">' + (rows.length ? 'NOTHING IN THIS FILTER.' : 'NO REVIEWS YET.') + '</div>');
+    }
+    inner.addEventListener('submit', function (e) {
+      if (e.target.id !== 'adminLogin') return;
+      e.preventDefault(); key = $('adminKey').value; if (key) load();
+    });
+    inner.addEventListener('click', async function (e) {
+      var f = e.target.closest('[data-f]'); if (f) { filter = f.dataset.f; pendingDelete = null; render(); return; }
+      if (e.target.closest('#adminRefresh')) { pendingDelete = null; load(); return; }
+      var t = e.target.closest('[data-toggle]');
+      if (t) {
+        var r = rows.filter(function (x) { return x.id === t.dataset.toggle; })[0]; if (!r) return;
+        t.disabled = true;
+        try { var res = await window.__reviewsApi('PATCH', '?id=' + encodeURIComponent(r.id), { status: r.status === 'published' ? 'hidden' : 'published' }, key); r.status = res.review.status; render(); window.__reloadReviews(); }
+        catch (err) { t.disabled = false; inner.insertAdjacentHTML('afterbegin', '<div class="rev-msg err" role="alert">' + esc(err.message) + '</div>'); }
+        return;
+      }
+      var d = e.target.closest('[data-del]');
+      if (d) {
+        if (pendingDelete !== d.dataset.del) { pendingDelete = d.dataset.del; render(); return; }
+        d.disabled = true;
+        try { await window.__reviewsApi('DELETE', '?id=' + encodeURIComponent(d.dataset.del), null, key); rows = rows.filter(function (x) { return x.id !== d.dataset.del; }); pendingDelete = null; render(); window.__reloadReviews(); }
+        catch (err) { d.disabled = false; inner.insertAdjacentHTML('afterbegin', '<div class="rev-msg err" role="alert">' + esc(err.message) + '</div>'); }
+      }
+    });
+    $('adminClose').addEventListener('click', close);
+    $('adminLogout').addEventListener('click', function () { key = null; rows = []; try { sessionStorage.removeItem('bscl-admin'); } catch (e) {} login(); });
+    document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && panel.classList.contains('is-open')) close(); });
+    function check() { if (location.hash === '#admin') open(); else if (panel.classList.contains('is-open')) close(); }
+    window.addEventListener('hashchange', check);
+    check();
   })();
 
   /* ── THEMATIC HOVER SOUNDS ── */
